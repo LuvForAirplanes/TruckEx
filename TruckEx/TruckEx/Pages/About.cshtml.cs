@@ -12,7 +12,7 @@ namespace TruckEx.Pages
 
         public void OnGet()
         {
-            Message = "Your application description page.";
+            Message = "I need CONTROL.";
         }
     }
 }

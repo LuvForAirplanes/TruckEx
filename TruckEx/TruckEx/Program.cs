@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace TruckEx
 {
@@ -20,6 +21,19 @@ namespace TruckEx
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+            .UseUrls(GetLocalUrls())
                 .Build();
+
+
+        private static string[] GetLocalUrls()
+        {
+            string hostNameOrAddress = Dns.GetHostName();
+            var hostEntry = Dns.GetHostEntry(hostNameOrAddress);
+            var urls = hostEntry.AddressList.Select(a => $"http://{a.ToString()}")
+                .Concat(new string[] { $"http://{hostNameOrAddress}", "http://localhost" })
+                .Distinct()
+                .ToArray();
+            return urls;
+        }
     }
 }

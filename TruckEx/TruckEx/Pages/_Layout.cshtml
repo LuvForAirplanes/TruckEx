@@ -1,6 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .truck-stats-container {
+            padding-top: 8px;
+        }
+
+        .truck-stats-btn {
+            background-color: #3E3E42;
+            color: #9d9d9d;
+            border: none;
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TruckEx</title>
@@ -34,6 +48,19 @@
                     <li><a asp-page="/About">About</a></li>
                     <li><a asp-page="/Contact">Contact</a></li>
                 </ul>
+                <div class="btn-group truck-stats-container">
+                    <button type="button" class="dropdown-toggle truck-stats-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Truck - Connected <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Truck Connected</a></li>
+                        <li><a href="https://whatismyipaddress.com/ip/174.60.18.29" target="_blank">108.55.115.230</a></li>
+                        <li><a href="https://www.google.com/maps/place/Myerstown,+PA" target="_blank">Myerstown, PA</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Reconnect</a></li>
+                        <li><a href="#">Disconnect</a></li>
+                    </ul>
+                </div>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
