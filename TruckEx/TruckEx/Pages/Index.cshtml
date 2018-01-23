@@ -11,36 +11,49 @@
     }
 
     .side-control {
-        width: 150px;
-        height: 100px;
+        width: 20%;
+        height: 85px;
         background-color: gray;
         display: inline-block;
+        border-radius: 15px;
     }
 
     .direction-control {
-        width: 150px;
-        height: 100px;
+        width: 55%;
+        height: 95px;
         background-color: gray;
         display: inline-block;
+        border-radius: 15px;
     }
 
     .middle-control {
-        width: 100px;
-        height: 100px;
+        width: 16%;
+        height: 85px;
         background-color: gray;
         display: inline-block;
+        border-radius: 15px;
     }
 
     .spacer {
-        width: 10px;
+        width: 1%;
         background-color: white;
         display: inline-block;
     }
 
     .direction-spacing {
-        width: 70%;
+        width: 58%;
         text-align: center;
     }
+
+    .br-spacing {
+        height: 100%;
+        width: 100px;
+    }
+    /*
+        Shadow:
+        -moz-box-shadow: 0 0 30px 15px #999;
+        -webkit-box-shadow: 0 0 30px 15px #999;
+    */
 </style>
 
 <br />
@@ -52,12 +65,15 @@
             <div class="panel-body">
                 <div class="direction-spacing">
                     <div class="direction-control"></div>
-                </div><br />
+                </div><div></div>
                 <div class="side-control"></div>
-                <div class="spacer"></div>
                 <div class="middle-control"></div>
-                <div class="spacer"></div>
-                <div class="side-control"></div><br /><br />
+                <div class="side-control"></div>
+                <div></div>
+                <div class="side-control"></div>
+                <div class="middle-control"></div>
+                <div class="side-control"></div>
+                <div class="spacer"></div><br /><div></div>
                 <div class="direction-spacing">
                     <div class="direction-control"></div>
                 </div>
