@@ -8,30 +8,30 @@ namespace TruckEx.Services
 {
     public class GPIO : IGPIO
     {
-        const string Drive = "gpio112.txt";
-        const string Direction = "gpio113.txt";
-        const string Steering = "gpio114.txt";
-        const string SteeringDirection = "gpio115.txt";
-        const string FrontLights = "gpio116.txt";
-        const string BackLights = "gpio117.txt";
+        const string Forward = "gpio30/value";
+        const string Reverse = "gpio60/value";
+        const string Left = "gpio31/value";
+        const string Right = "gpio48/value";
+        const string FrontLights = "gpio/value";
+        const string BackLights = "gpio/value";
 
-        const string Folder = @"C:\DebugTruckEx\";
+        const string Folder = @"/sys/class/gpio";
 
-        public void SetValue(Relay relay, string value)
+        public void SetValue(Relay relay, Value value)
         {
             switch (relay)
             {
-                case Relay.Drive:
-                    WriteFile(Drive, value);
+                case Relay.Forward:
+                    WriteFile(Forward, value);
                     break;
-                case Relay.Direction:
-                    WriteFile(Direction, value);
+                case Relay.Reverse:
+                    WriteFile(Reverse, value);
                     break;
-                case Relay.Steering:
-                    WriteFile(Steering, value);
+                case Relay.Left:
+                    WriteFile(Left, value);
                     break;
-                case Relay.SteeringDirection:
-                    WriteFile(SteeringDirection, value);
+                case Relay.Right:
+                    WriteFile(Right, value);
                     break;
                 case Relay.BackLights:
                     WriteFile(BackLights, value);
@@ -48,14 +48,18 @@ namespace TruckEx.Services
         {
             switch (relay)
             {
-                case Relay.Drive:
-                    return ReadFile(Drive);
-                case Relay.Direction:
-                    return ReadFile(Direction);
-                case Relay.Steering:
-                    return ReadFile(Steering);
-                case Relay.SteeringDirection:
-                    return ReadFile(SteeringDirection);
+                case Relay.Forward:
+                    return ReadFile(Forward);
+                case Relay.Reverse:
+                    return ReadFile(Reverse);
+                case Relay.Left:
+                    return ReadFile(Left);
+                case Relay.Right:
+                    return ReadFile(Right);
+                case Relay.FrontLights:
+                    return ReadFile(FrontLights);
+                case Relay.BackLights:
+                    return ReadFile(BackLights);
                 default:
                     return string.Empty;
             }
@@ -70,9 +74,9 @@ namespace TruckEx.Services
                 return string.Empty;
         }
 
-        private void WriteFile(string file, string value)
+        private void WriteFile(string file, Value value)
         {
-            File.WriteAllText(Path.Combine(Folder, file), value);
+            File.WriteAllText(Path.Combine(Folder, file), value.ToString());
         }
     }
 }

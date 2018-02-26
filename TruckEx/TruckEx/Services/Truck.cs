@@ -17,12 +17,12 @@ namespace TruckEx.Services
             {
                 if(status == LightStatus.On)
                 {
-                    truckRelays.SetValue(Relay.FrontLights, "0"); //zero is on in linux
-                    truckRelays.SetValue(Relay.BackLights, "0"); //zero is on in linux
+                    truckRelays.SetValue(Relay.FrontLights, Value.On);
+                    truckRelays.SetValue(Relay.BackLights, Value.On);
                 } else if(status == LightStatus.Off)
                 {
-                    truckRelays.SetValue(Relay.FrontLights, "1"); //zero is on in linux
-                    truckRelays.SetValue(Relay.BackLights, "1"); //zero is on in linux
+                    truckRelays.SetValue(Relay.FrontLights, Value.Off);
+                    truckRelays.SetValue(Relay.BackLights, Value.Off);
                 }
             }
 
@@ -30,11 +30,11 @@ namespace TruckEx.Services
             {
                 if (status == LightStatus.On)
                 {
-                    truckRelays.SetValue(Relay.BackLights, "0"); //zero is on in linux
+                    truckRelays.SetValue(Relay.BackLights, Value.On);
                 }
                 else if (status == LightStatus.Off)
                 {
-                    truckRelays.SetValue(Relay.BackLights, "1"); //zero is on in linux
+                    truckRelays.SetValue(Relay.BackLights, Value.Off);
                 }
             }
 
@@ -42,11 +42,11 @@ namespace TruckEx.Services
             {
                 if (status == LightStatus.On)
                 {
-                    truckRelays.SetValue(Relay.FrontLights, "0"); //zero is on in linux
+                    truckRelays.SetValue(Relay.FrontLights, Value.On);
                 }
                 else if (status == LightStatus.Off)
                 {
-                    truckRelays.SetValue(Relay.FrontLights, "1"); //zero is on in linux
+                    truckRelays.SetValue(Relay.FrontLights, Value.Off);
                 }
             }
         }
@@ -54,11 +54,26 @@ namespace TruckEx.Services
         public void Start(DriveDirection direction)
         {
             state.Drive = direction;
+            switch (direction)
+            {
+                case DriveDirection.Forward:
+                    truckRelays.SetValue(Relay.Forward, Value.On);
+                    truckRelays.SetValue(Relay.Reverse, Value.Off);
+                    break;
+                case DriveDirection.Reverse:
+                    truckRelays.SetValue(Relay.Forward, Value.Off);
+                    truckRelays.SetValue(Relay.Reverse, Value.On);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Stop()
         {
             state.Drive = DriveDirection.Stopped;
+            truckRelays.SetValue(Relay.Forward, Value.Off);
+            truckRelays.SetValue(Relay.Reverse, Value.Off);
         }
 
         public void Turn(TurnDirection direction)

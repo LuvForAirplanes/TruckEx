@@ -7,17 +7,23 @@ namespace TruckEx.Services
 {
     public enum Relay
     {
-        Drive,
-        Direction,
-        Steering,
-        SteeringDirection,
+        Forward,
+        Reverse,
+        Left,
+        Right,
         FrontLights,
         BackLights
     }
 
+    public enum Value
+    {
+        Off,
+        On
+    }
+
     public interface IGPIO
     {
-        void SetValue(Relay relay, string value);
+        void SetValue(Relay relay, Value value);
 
         string GetValue(Relay relay);
     }
