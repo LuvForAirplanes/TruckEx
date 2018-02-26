@@ -12,8 +12,8 @@ namespace TruckEx.Services
         const string Reverse = "gpio60/value";
         const string Left = "gpio31/value";
         const string Right = "gpio48/value";
-        const string FrontLights = "gpio/value";
-        const string BackLights = "gpio/value";
+        const string FrontLights = "gpio3/value";
+        const string BackLights = "gpio49/value";
 
         const string Folder = @"/sys/class/gpio";
 

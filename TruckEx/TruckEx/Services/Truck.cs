@@ -13,41 +13,41 @@ namespace TruckEx.Services
 
         public void Lights(LightLocation location, LightStatus status)
         {
-            if(location == LightLocation.All)
+            switch(location)
             {
-                if(status == LightStatus.On)
-                {
-                    truckRelays.SetValue(Relay.FrontLights, Value.On);
-                    truckRelays.SetValue(Relay.BackLights, Value.On);
-                } else if(status == LightStatus.Off)
-                {
-                    truckRelays.SetValue(Relay.FrontLights, Value.Off);
-                    truckRelays.SetValue(Relay.BackLights, Value.Off);
-                }
-            }
-
-            if(location == LightLocation.Back)
-            {
-                if (status == LightStatus.On)
-                {
-                    truckRelays.SetValue(Relay.BackLights, Value.On);
-                }
-                else if (status == LightStatus.Off)
-                {
-                    truckRelays.SetValue(Relay.BackLights, Value.Off);
-                }
-            }
-
-            if(location == LightLocation.Front)
-            {
-                if (status == LightStatus.On)
-                {
-                    truckRelays.SetValue(Relay.FrontLights, Value.On);
-                }
-                else if (status == LightStatus.Off)
-                {
-                    truckRelays.SetValue(Relay.FrontLights, Value.Off);
-                }
+                case LightLocation.All:
+                    switch (status)
+                    {
+                        case LightStatus.On:
+                            truckRelays.SetValue(Relay.FrontLights, Value.On);
+                            truckRelays.SetValue(Relay.BackLights, Value.On);
+                            break;
+                        case LightStatus.Off:
+                            truckRelays.SetValue(Relay.FrontLights, Value.Off);
+                            truckRelays.SetValue(Relay.BackLights, Value.Off);
+                            break;
+                    }
+                    break;
+                case LightLocation.Back:
+                    if (status == LightStatus.On)
+                    {
+                        truckRelays.SetValue(Relay.BackLights, Value.On);
+                    }
+                    else if (status == LightStatus.Off)
+                    {
+                        truckRelays.SetValue(Relay.BackLights, Value.Off);
+                    }
+                    break;
+                case LightLocation.Front:
+                    if (status == LightStatus.On)
+                    {
+                        truckRelays.SetValue(Relay.FrontLights, Value.On);
+                    }
+                    else if (status == LightStatus.Off)
+                    {
+                        truckRelays.SetValue(Relay.FrontLights, Value.Off);
+                    }
+                    break;
             }
         }
 
