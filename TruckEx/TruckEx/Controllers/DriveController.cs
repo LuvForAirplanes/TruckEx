@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TruckEx.Data;
+using TruckEx.Services;
 
 namespace TruckEx.Controllers
 {
@@ -11,54 +13,60 @@ namespace TruckEx.Controllers
     [Route("api/Drive")]
     public class DriveController : Controller
     {
+        private ITruck truckService;
+
+        public DriveController(ITruck truck)
+        {
+            truckService = truck;
+        }
         // GET: api/Drive
         [HttpGet]
-        public object Get()
+        public TruckState Get()
         {
-            return GetValues();
+            return truckService.GetState();
         }
 
         // GET: api/Drive/command
         [HttpGet("{command}", Name = "Get")]
-        public object Get(string command)
+        public TruckState Get(string command)
         {
             switch (command.ToLower())
             {
-                case "start":
-                    GPIO.SetValue(GPIO.Relay.Drive, "1");
-                    break;
                 case "stop":
-                    GPIO.SetValue(GPIO.Relay.Drive, "0");
+                    truckService.Stop();
                     break;
+                case "start":
                 case "forward":
-                    GPIO.SetValue(GPIO.Relay.Direction, "0");
+                    truckService.Start(DriveDirection.Forward);
                     break;
-                case "backward":
-                    GPIO.SetValue(GPIO.Relay.Direction, "1");
+                case "reverse":
+                    truckService.Start(DriveDirection.Reverse);
                     break;
                 case "right":
-                    GPIO.SetValue(GPIO.Relay.Steering, "0");
-                    GPIO.SetValue(GPIO.Relay.SteeringDirection, "0");
+                    truckService.Turn(TurnDirection.Right);
                     break;
                 case "left":
-                    GPIO.SetValue(GPIO.Relay.Steering, "0");
-                    GPIO.SetValue(GPIO.Relay.SteeringDirection, "1");
+                    truckService.Turn(TurnDirection.Left);
+                    break;
+                case "straight":
+                    truckService.Turn(TurnDirection.Straight);
+                    break;
+                case "frontlights-on":
+                    truckService.Lights(LightLocation.Front, LightStatus.On);
+                    break;
+                case "frontlights-off":
+                    truckService.Lights(LightLocation.Front, LightStatus.Off);
+                    break;
+                case "backlights-on":
+                    truckService.Lights(LightLocation.Back, LightStatus.On);
+                    break;
+                case "backlights-off":
+                    truckService.Lights(LightLocation.Back, LightStatus.Off);
                     break;
                 default:
                     break;
             }
-            return GetValues();
-        }
-
-        private static object GetValues()
-        {
-            return new
-            {
-                drive = GPIO.GetValue(GPIO.Relay.Drive),
-                direction = GPIO.GetValue(GPIO.Relay.Direction),
-                steering = GPIO.GetValue(GPIO.Relay.Steering),
-                steeringDirection = GPIO.GetValue(GPIO.Relay.SteeringDirection)
-            };
+            return truckService.GetState();
         }
     }
 }

@@ -51,6 +51,10 @@
         width: 100px;
     }
 
+    #output {
+        height: 200px;
+        width: 400px;
+    }
     /*
         Shadow:
         -moz-box-shadow: 0 0 30px 15px #999;
@@ -69,29 +73,29 @@
                         <div class="direction-control" id="forward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
                     </div>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="row">
-                            <div class="col-sm-6 side-control" id="left-forward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
+                            <div class="col-sm-12 side-control" id="left-forward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
                         </div>
                         <div class="row">
                             <div class="spacer"></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 side-control" id="left-backward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
+                            <div class="col-sm-12 side-control" id="left-backward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="col-sm-6 middle-control"></div>
+                    <div class="col-sm-2">
+                        <div class="col-sm-12 middle-control"></div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="row ">
-                            <div class="col-sm-6 side-control" id="right-forward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
+                            <div class="col-sm-12 side-control" id="right-forward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
                         </div>
                         <div class="row">
                             <div class="spacer"></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 side-control" id="right-backward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
+                            <div class="col-sm-12 side-control" id="right-backward" onmouseenter="ControlEnter(event)" onmouseout="ControlExit(event)"></div>
                         </div>
                     </div>
                 </div>
@@ -144,7 +148,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Connect</div>
             <div class="panel-body">
-                <p>Data about connecting to the BeagleBone/RC Truck will appear here. (supposedly)</p>
+                <textarea id="output" class="outputbox"></textarea>
             </div>
         </div>
     </div>
@@ -155,7 +159,7 @@
         var target = e.target.id;
         switch (target) {
             case "forward":
-                alert(CreateRequest("forward"));
+                CreateRequest("forward");
                 break;
             case "left-forward":
                 break;
@@ -166,7 +170,7 @@
             case "right-backward":
                 break;
             case "backward":
-                alert(CreateRequest("backward"));
+                CreateRequest("reverse");
                 break;
             default:
                 break;
@@ -178,7 +182,7 @@
         var target = e.target.id;
         switch (target) {
             case "forward":
-                alert(CreateRequest("forward"));
+                CreateRequest("forward");
                 break;
             case "left-forward":
                 break;
@@ -189,7 +193,7 @@
             case "right-backward":
                 break;
             case "backward":
-                alert(CreateRequest("backward"));
+                CreateRequest("backward");
                 break;
             default:
                 break;
@@ -200,7 +204,8 @@
     function CreateRequest(command) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", "/api/Drive/" + command, false); // false for synchronous request
-            xmlHttp.send(null);
+        xmlHttp.send(null);
+        document.getElementById("output").value = xmlHttp.responseText + "\n";
             return xmlHttp.responseText;
     }
 
@@ -212,9 +217,11 @@
     function lightBox() {
         var lightToggle = document.getElementById("light-toggle").innerText;
         if (lightToggle == "Lights ON") {
+            CreateRequest("frontlightsoff");
             lightToggle = "Lights On/Off";
 
         } else {
+            CreateRequest("frontlightson");
             lightToggle = "Lights ON";
 
         }

@@ -4,26 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TruckEx
+namespace TruckEx.Services
 {
-    public class GPIO
+    public class GPIO : IGPIO
     {
         const string Drive = "gpio112.txt";
         const string Direction = "gpio113.txt";
         const string Steering = "gpio114.txt";
         const string SteeringDirection = "gpio115.txt";
+        const string FrontLights = "gpio116.txt";
+        const string BackLights = "gpio117.txt";
 
-        static string Folder { get; set; } = @"C:\DebugTruckEx\";
+        const string Folder = @"C:\DebugTruckEx\";
 
-        public enum Relay
-        {
-            Drive,
-            Direction,
-            Steering,
-            SteeringDirection
-        }
-
-        public static void SetValue(Relay relay, string value)
+        public void SetValue(Relay relay, string value)
         {
             switch (relay)
             {
@@ -39,12 +33,18 @@ namespace TruckEx
                 case Relay.SteeringDirection:
                     WriteFile(SteeringDirection, value);
                     break;
+                case Relay.BackLights:
+                    WriteFile(BackLights, value);
+                    break;
+                case Relay.FrontLights:
+                    WriteFile(FrontLights, value);
+                    break;
                 default:
                     break;
             }
         }
 
-        public static string GetValue(Relay relay)
+        public string GetValue(Relay relay)
         {
             switch (relay)
             {
@@ -61,7 +61,7 @@ namespace TruckEx
             }
         }
 
-        private static string ReadFile(string file)
+        private string ReadFile(string file)
         {
             string filePath = Path.Combine(Folder, file);
             if (File.Exists(filePath))
@@ -70,7 +70,7 @@ namespace TruckEx
                 return string.Empty;
         }
 
-        private static void WriteFile(string file, string value)
+        private void WriteFile(string file, string value)
         {
             File.WriteAllText(Path.Combine(Folder, file), value);
         }
