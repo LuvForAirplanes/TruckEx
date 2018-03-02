@@ -8,14 +8,21 @@ namespace TruckEx.Services
 {
     public class GPIO : IGPIO
     {
-        const string Forward = "gpio30/value";
-        const string Reverse = "gpio60/value";
-        const string Left = "gpio31/value";
-        const string Right = "gpio48/value";
-        const string FrontLights = "gpio3/value";
-        const string BackLights = "gpio49/value";
+        //const string Forward = "gpio30/value";
+        //const string Reverse = "gpio60/value";
+        //const string Left = "gpio31/value";
+        //const string Right = "gpio48/value";
+        //const string FrontLights = "gpio3/value";
+        //const string BackLights = "gpio49/value";
+        //const string Folder = @"/sys/class/gpio";
 
-        const string Folder = @"/sys/class/gpio";
+        const string Forward = "forward.txt";
+        const string Reverse = "reverse.txt";
+        const string Left = "left.txt";
+        const string Right = "right.txt";
+        const string FrontLights = "front_lights.txt";
+        const string BackLights = "back_lights.txt";
+        const string Folder = @"C:/Temp/GPIO/";
 
         public void SetValue(Relay relay, Value value)
         {
@@ -76,7 +83,7 @@ namespace TruckEx.Services
 
         private void WriteFile(string file, Value value)
         {
-            File.WriteAllText(Path.Combine(Folder, file), value.ToString());
+            File.WriteAllText(Path.Combine(Folder, file), ((int)value).ToString());
         }
     }
 }
