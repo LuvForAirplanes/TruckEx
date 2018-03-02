@@ -79,6 +79,23 @@ namespace TruckEx.Services
         public void Turn(TurnDirection direction)
         {
             state.Steering = direction;
+            switch (direction)
+            {
+                case TurnDirection.Left:
+                    truckRelays.SetValue(Relay.Left, Value.On);
+                    truckRelays.SetValue(Relay.Right, Value.Off);
+                    break;
+                case TurnDirection.Right:
+                    truckRelays.SetValue(Relay.Left, Value.Off);
+                    truckRelays.SetValue(Relay.Right, Value.On);
+                    break;
+                case TurnDirection.Straight:
+                    truckRelays.SetValue(Relay.Left, Value.Off);
+                    truckRelays.SetValue(Relay.Right, Value.Off);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public TruckState GetState()
