@@ -17,8 +17,8 @@ namespace TruckEx.Services
 
     public enum Value
     {
-        Off,
-        On
+        On,
+        Off
     }
 
     public interface IGPIO
