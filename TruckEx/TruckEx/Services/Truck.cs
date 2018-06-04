@@ -6,7 +6,35 @@ using TruckEx.Data;
 
 namespace TruckEx.Services
 {
-    public class Truck : ITruck
+    public enum DriveDirection
+    {
+        Forward,
+        Reverse,
+        Stopped
+    }
+
+    public enum TurnDirection
+    {
+        Left,
+        Right,
+        Straight
+    }
+
+    public enum LightLocation
+    {
+        Front,
+        Back,
+        All
+    }
+
+    public enum LightStatus
+    {
+        On,
+        Off,
+        Flashing
+    }
+
+    public class Truck
     {
         TruckState state = new TruckState();
         GPIO truckRelays = new GPIO();

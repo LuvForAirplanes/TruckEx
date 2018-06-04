@@ -11,9 +11,9 @@ namespace TruckEx.Pages
 {
     public class IndexModel : PageModel
     {
-        private ITruck _truck;
+        private Truck _truck;
 
-        public IndexModel(ITruck truck)
+        public IndexModel(Truck truck)
         {
             _truck = truck;
         }

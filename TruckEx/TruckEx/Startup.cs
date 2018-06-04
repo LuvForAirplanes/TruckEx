@@ -43,8 +43,8 @@ namespace TruckEx
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();
-            services.AddSingleton<IGPIO, GPIO>();
-            services.AddSingleton<ITruck, Truck>();
+            services.AddScoped<GPIO>();
+            services.AddSingleton<Truck>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

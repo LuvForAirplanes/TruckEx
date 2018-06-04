@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace TruckEx.Services
 {
-    public class GPIO : IGPIO
+    public enum Relay
+    {
+        Forward,
+        Reverse,
+        Left,
+        Right,
+        FrontLights,
+        BackLights
+    }
+
+    public enum Value
+    {
+        On,
+        Off
+    }
+
+    public class GPIO
     {
         //const string Forward = "gpio30/value";
         //const string Reverse = "gpio60/value";

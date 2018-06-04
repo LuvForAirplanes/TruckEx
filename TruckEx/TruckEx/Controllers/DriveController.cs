@@ -13,9 +13,9 @@ namespace TruckEx.Controllers
     [Route("api/Drive")]
     public class DriveController : Controller
     {
-        private ITruck truckService;
+        private Truck truckService;
 
-        public DriveController(ITruck truck)
+        public DriveController(Truck truck)
         {
             truckService = truck;
         }
